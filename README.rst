@@ -1,8 +1,17 @@
 pypptx
 ======
 
+.. image:: https://travis-ci.org/juanpabloaj/pypptx.svg?branch=master
+    :target: https://travis-ci.org/juanpabloaj/pypptx
+
 Create a pptx from a yaml file.
 
+Install
+-------
+
+::
+
+    pip install pypptx
 
 Usage:
 ------
