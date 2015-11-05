@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
 
 
@@ -25,7 +26,7 @@ setup(
     packages=find_packages(),
     install_requires=install_requires,
     long_description=long_description,
-    packages=['pypptx'],
+    url="https://github.com/juanpabloaj/pypptx",
     test_suite="tests",
     entry_points={
         'console_scripts': [
