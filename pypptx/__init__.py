@@ -4,6 +4,7 @@ import sys
 import os
 import yaml
 from pptx import Presentation
+from pptx.util import Cm
 
 
 def slides_from_yaml(document):
@@ -11,6 +12,27 @@ def slides_from_yaml(document):
     load_yaml = yaml.load(document)
     if 'slides' in load_yaml.keys():
         return load_yaml['slides']
+
+
+def add_images(slide, images):
+
+    for image in images:
+
+        keys = image.keys()
+        if 'left' in keys and 'top' in keys and 'path' in keys:
+
+            left = Cm(float(image['left']))
+            top = Cm(float(image['top']))
+            img_path = image['path']
+
+            if 'height' in keys:
+
+                height = Cm(float(image['height']))
+                slide.shapes.add_picture(
+                    img_path, left, top, height=height
+                )
+            else:
+                slide.shapes.add_picture(img_path, left, top)
 
 
 def generate_presentation(slides):
@@ -30,6 +52,10 @@ def generate_presentation(slides):
 
         tf = body_shape.text_frame
         tf.text = slide_info['text']
+
+        if 'images' in slide_info.keys():
+
+            add_images(slide, slide_info['images'])
 
     return prs
 

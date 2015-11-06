@@ -9,7 +9,7 @@ Create a pptx from a yaml file.
 Install
 -------
 
-::
+.. code-block:: bash
 
     pip install pypptx
 
@@ -18,11 +18,29 @@ Usage:
 
 To generate the pptx from a yaml file
 
-::
+.. code-block:: bash
 
-  pptx file.yaml
+    pptx file.yaml
 
-This repository have a file called example.yaml with a example of the input syntax.
+Input yaml example
+
+.. code-block:: yaml
+
+    slides:
+        - title: first title
+          text: some text
+        - title: second title
+          text: more text
+          images:
+            - path: images/blue.jpg
+              top: 7
+              left: 4
+              height: 5
+            - path: images/blue.jpg
+              top: 5
+              left: 10
+
+This repository have a yaml file called example.yaml with a example of the input syntax.
 
 Why?
 ----

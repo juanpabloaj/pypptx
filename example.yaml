@@ -3,3 +3,11 @@ slides:
       text: some text
     - title: second title
       text: more text
+      images:
+        - path: images/blue.jpg
+          top: 7
+          left: 4
+          height: 5
+        - path: images/blue.jpg
+          top: 5
+          left: 10
