@@ -74,3 +74,13 @@ Why?
 ----
 
 Some people prefer usage a pptx, in this case I prefer write a plain text to generate the pptx.
+
+Particularly, set the position of a set of pictures in a lot of slides is very tedious with the mouse.
+
+Contributing
+------------
+
+1. Fork the `repository <https://github.com/juanpabloaj/pypptx>`_ on GitHub.
+2. Make a branch off of master and commit your changes to it.
+3. Run the tests with ``tox``
+4. Submit a Pull Request to the master branch on GitHub.
