@@ -1,8 +1,10 @@
 slides:
     - title: first title
       text: some text
+      layout: 0
     - title: second title
       text: more text
+      layout: 1
       images:
         - path: images/blue.jpg
           top: 7
@@ -11,3 +13,5 @@ slides:
         - path: images/blue.jpg
           top: 5
           left: 10
+    - title: third slide
+      text: with the previous layout

@@ -29,8 +29,10 @@ Input yaml example
     slides:
         - title: first title
           text: some text
+          layout: 0
         - title: second title
           text: more text
+          layout: 1
           images:
             - path: images/blue.jpg
               top: 7
@@ -39,8 +41,34 @@ Input yaml example
             - path: images/blue.jpg
               top: 5
               left: 10
+        - title: third slide
+          text: with the previous layout
 
 This repository have a yaml file called example.yaml with a example of the input syntax.
+
+List the layouts ids to use in yaml file
+
+.. code-block:: bash
+
+    pptx -l
+    0 Title Slide
+    1 Title and Content
+    ...
+
+
+With the layout id select which use
+
+.. code-block:: yaml
+
+    ...
+    - title: title
+      text: subtitle
+      layout: 0
+    - title: Other slide
+      text: with other layout
+      layout: 1
+    ...
+
 
 Why?
 ----

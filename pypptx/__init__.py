@@ -38,20 +38,27 @@ def add_images(slide, images):
 def generate_presentation(slides):
 
     prs = Presentation()
-    bullet_slide_layout = prs.slide_layouts[1]
+    use_layout = 1
+    slide_layout = prs.slide_layouts[use_layout]
 
     for slide_info in slides:
 
-        slide = prs.slides.add_slide(bullet_slide_layout)
+        if 'layout' in slide_info.keys():
+            use_layout = int(slide_info['layout'])
+            slide_layout = prs.slide_layouts[use_layout]
+
+        slide = prs.slides.add_slide(slide_layout)
         shapes = slide.shapes
 
         title_shape = shapes.title
         body_shape = shapes.placeholders[1]
 
-        title_shape.text = slide_info['title']
+        if 'title' in slide_info.keys():
+            title_shape.text = slide_info['title']
 
-        tf = body_shape.text_frame
-        tf.text = slide_info['text']
+        if 'text' in slide_info.keys():
+            tf = body_shape.text_frame
+            tf.text = slide_info['text']
 
         if 'images' in slide_info.keys():
 
