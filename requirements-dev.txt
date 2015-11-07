@@ -3,3 +3,4 @@ PyYAML==3.11
 nose
 flake8
 nose-cov
+tox
