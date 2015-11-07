@@ -18,7 +18,7 @@ except IOError:
 
 setup(
     name="pypptx",
-    version="0.2.1",
+    version="0.2.2",
     description="Create a pptx from plain text",
     license="MIT",
     author="JuanPablo AJ",
