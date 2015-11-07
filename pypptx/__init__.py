@@ -14,25 +14,31 @@ def slides_from_yaml(document):
         return load_yaml['slides']
 
 
+def picture_arguments(picture):
+    ''' arguments to generate a picture in shapes '''
+    picture_list = []
+    picture_dict = {}
+
+    keys = picture.keys()
+
+    if 'left' in keys and 'top' in keys and 'path' in keys:
+        path, left, top = [picture[k] for k in ['path', 'left', 'top']]
+        picture_list = [path, Cm(left), Cm(top)]
+
+        for k in ['width', 'height']:
+            if k in keys:
+                picture_dict[k] = Cm(picture[k])
+
+    return picture_list,  picture_dict
+
+
 def add_images(slide, images):
 
     for image in images:
 
-        keys = image.keys()
-        if 'left' in keys and 'top' in keys and 'path' in keys:
-
-            left = Cm(float(image['left']))
-            top = Cm(float(image['top']))
-            img_path = image['path']
-
-            if 'height' in keys:
-
-                height = Cm(float(image['height']))
-                slide.shapes.add_picture(
-                    img_path, left, top, height=height
-                )
-            else:
-                slide.shapes.add_picture(img_path, left, top)
+        picture_list, picture_dict = picture_arguments(image)
+        if picture_list != []:
+            slide.shapes.add_picture(*picture_list, **picture_dict)
 
 
 def generate_presentation(slides):
