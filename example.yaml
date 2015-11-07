@@ -15,3 +15,6 @@ slides:
           left: 10
     - title: third slide
       text: with the previous layout
+    - title: slide
+      text: some text
+      layout: 11

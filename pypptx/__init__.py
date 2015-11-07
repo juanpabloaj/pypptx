@@ -45,7 +45,9 @@ def generate_presentation(slides):
 
         if 'layout' in slide_info.keys():
             use_layout = int(slide_info['layout'])
-            slide_layout = prs.slide_layouts[use_layout]
+
+            if use_layout < len(prs.slide_layouts):
+                slide_layout = prs.slide_layouts[use_layout]
 
         slide = prs.slides.add_slide(slide_layout)
         shapes = slide.shapes
