@@ -3,6 +3,7 @@
 import sys
 import os
 import yaml
+import argparse
 from pptx import Presentation
 from pptx.util import Cm
 
@@ -60,20 +61,39 @@ def generate_presentation(slides):
     return prs
 
 
+def show_layouts():
+    prs = Presentation()
+    for i, layout in enumerate(prs.slide_layouts):
+        print i, layout.name
+
+
 def main():
 
-    if len(sys.argv) > 1:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', nargs='?', help='yaml file')
+    parser.add_argument(
+        '-l', '--layouts', help='List layouts ids', action='store_true'
+    )
 
-        file_name = sys.argv[1]
+    args = parser.parse_args()
 
-        if file_name.endswith('.yml') or file_name.endswith('.yaml'):
+    if args.layouts:
+        show_layouts()
+        exit()
 
-            file_content = open(file_name).read()
-            file_name = os.path.splitext(file_name)[0]
-            slides = slides_from_yaml(file_content)
+    file_name = args.file
+    if not file_name:
+        parser.print_help()
+        exit()
 
-            pptx_name = '{}.pptx'.format(file_name)
-            generate_presentation(slides).save(pptx_name)
+    if file_name.endswith('.yml') or file_name.endswith('.yaml'):
+
+        file_content = open(file_name).read()
+        file_name = os.path.splitext(file_name)[0]
+        slides = slides_from_yaml(file_content)
+
+        pptx_name = '{}.pptx'.format(file_name)
+        generate_presentation(slides).save(pptx_name)
 
 
 if __name__ == '__main__':
