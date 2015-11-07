@@ -4,7 +4,7 @@ pypptx
 .. image:: https://travis-ci.org/juanpabloaj/pypptx.svg?branch=master
     :target: https://travis-ci.org/juanpabloaj/pypptx
 
-Create a pptx from a yaml file.
+Create a pptx from a `yaml <http://www.yaml.org/spec/1.2/spec.html#Preview>`_ file.
 
 Install
 -------
