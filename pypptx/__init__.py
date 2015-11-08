@@ -3,8 +3,16 @@
 import os
 import yaml
 import argparse
+import numbers
 from pptx import Presentation
 from pptx.util import Cm
+
+
+def is_number(number):
+    if isinstance(number, numbers.Real):
+        return True
+    else:
+        return False
 
 
 def slides_from_yaml(document):
@@ -23,11 +31,14 @@ def picture_arguments(picture):
 
     if 'left' in keys and 'top' in keys and 'path' in keys:
         path, left, top = [picture[k] for k in ['path', 'left', 'top']]
-        picture_list = [path, Cm(left), Cm(top)]
 
-        for k in ['width', 'height']:
-            if k in keys:
-                picture_dict[k] = Cm(picture[k])
+        if is_number(left) and is_number(top):
+            picture_list = [path, Cm(left), Cm(top)]
+
+            for k in ['width', 'height']:
+                if k in keys:
+                    if is_number(picture[k]):
+                        picture_dict[k] = Cm(picture[k])
 
     return picture_list,  picture_dict
 

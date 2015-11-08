@@ -5,6 +5,7 @@ from pptx.util import Cm
 
 from pypptx import slides_from_yaml
 from pypptx import picture_arguments
+from pypptx import is_number
 
 
 class TestSlides(unittest.TestCase):
@@ -24,11 +25,16 @@ class TestSlides(unittest.TestCase):
 
         self.assertEqual(expected_list, slides_from_yaml(yaml))
 
+    @unittest.skip('skip')
+    def test_yaml_dont_have_slides(self):
+        self.fail()
+
 
 class TestPictureArguments(unittest.TestCase):
 
     def setUp(self):
         self.picture = {'left': 10, 'top': 20, 'path': 'some/path'}
+        self.expected_list = ['some/path', Cm(10), Cm(20)]
 
     def test_empty_picture_dict(self):
         picture_list, picture_dict = picture_arguments({})
@@ -37,10 +43,9 @@ class TestPictureArguments(unittest.TestCase):
 
     def test_return_list(self):
 
-        expected_list = ['some/path', Cm(10), Cm(20)]
         picture_list, picture_dict = picture_arguments(self.picture)
 
-        self.assertEqual(picture_list, expected_list)
+        self.assertEqual(picture_list, self.expected_list)
         self.assertDictEqual(picture_dict, {})
 
     def test_with_width(self):
@@ -60,3 +65,45 @@ class TestPictureArguments(unittest.TestCase):
         picture_list, picture_dict = picture_arguments(picture)
 
         self.assertDictEqual(picture_dict, {})
+
+    def test_left_is_not_number(self):
+        picture = self.picture
+        picture['left'] = '10'
+
+        picture_list, picture_dict = picture_arguments(picture)
+        self.assertEqual(picture_list, [])
+        self.assertDictEqual(picture_dict, {})
+
+    def test_top_is_not_number(self):
+        picture = self.picture
+        picture['top'] = '10'
+
+        picture_list, picture_dict = picture_arguments(picture)
+        self.assertEqual(picture_list, [])
+        self.assertDictEqual(picture_dict, {})
+
+    def test_width_is_not_number(self):
+        picture = self.picture
+        picture['width'] = '10'
+
+        picture_list, picture_dict = picture_arguments(picture)
+        self.assertDictEqual(picture_dict, {})
+
+    def test_height_is_not_number(self):
+        picture = self.picture
+        picture['height'] = '10'
+
+        picture_list, picture_dict = picture_arguments(picture)
+        self.assertDictEqual(picture_dict, {})
+
+
+class TestIsNumber(unittest.TestCase):
+
+    def test_float_is_true(self):
+        self.assertTrue(is_number(10.))
+
+    def test_int_is_true(self):
+        self.assertTrue(is_number(10))
+
+    def test_string_is_false(self):
+        self.assertFalse(is_number('a string'))
