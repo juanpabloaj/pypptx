@@ -15,6 +15,37 @@ def is_number(number):
         return False
 
 
+def write_yaml(yaml_name, yaml_content):
+    with open(yaml_name, 'w') as out_yaml:
+        yaml.safe_dump(
+            yaml_content, out_yaml, encoding='utf-8',
+            allow_unicode=True, indent=4
+        )
+
+
+def yaml_from_pptx(pptx_path):
+
+    prs = Presentation(pptx_path)
+
+    slides = []
+
+    for slide in prs.slides:
+        slide_content = {'title': slide.shapes.title.text}
+        for shape in slide.shapes:
+            if not shape.has_text_frame:
+                continue
+
+            for paragraph in shape.text_frame.paragraphs:
+                for run in paragraph.runs:
+                    pass
+
+        slides.append(slide_content)
+
+    yaml_content = {'slides': slides}
+
+    return yaml_content
+
+
 def slides_from_yaml(document):
 
     load_yaml = yaml.load(document)
@@ -119,6 +150,17 @@ def main():
 
         pptx_name = '{}.pptx'.format(file_name)
         generate_presentation(slides).save(pptx_name)
+        print '{} created'.format(pptx_name)
+
+    elif file_name.endswith('.pptx'):
+
+        yaml_content = yaml_from_pptx(file_name)
+
+        file_name = os.path.splitext(file_name)[0]
+        yaml_name = '{}_generated.yaml'.format(file_name)
+
+        write_yaml(yaml_name, yaml_content)
+        print '{} created'.format(yaml_name)
 
 
 if __name__ == '__main__':
