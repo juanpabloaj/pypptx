@@ -69,15 +69,21 @@ def generate_presentation(slides):
         slide = prs.slides.add_slide(slide_layout)
         shapes = slide.shapes
 
-        title_shape = shapes.title
-        body_shape = shapes.placeholders[1]
-
         if 'title' in slide_info.keys():
-            title_shape.text = slide_info['title']
 
-        if 'text' in slide_info.keys():
-            tf = body_shape.text_frame
-            tf.text = slide_info['text']
+            title_shape = shapes.title
+            if title_shape:
+                title_shape.text = slide_info['title']
+
+        try:
+            body_shape = shapes.placeholders[1]
+
+            if 'text' in slide_info.keys():
+                tf = body_shape.text_frame
+                tf.text = slide_info['text']
+
+        except KeyError:
+            pass
 
         if 'images' in slide_info.keys():
 
