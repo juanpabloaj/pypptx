@@ -10,6 +10,12 @@ slides:
     - title: Baz
       text: Just some text
 
+    - title: Nested
+      text:
+        - A bullet
+        - 
+          - A sub bullet
+
     - title: Line Chart
       layout: 5
       chart:

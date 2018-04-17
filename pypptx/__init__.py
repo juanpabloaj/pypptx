@@ -9,8 +9,11 @@ from pptx.util import Cm, Inches
 from pptx.chart.data import ChartData
 from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION
 
+DEBUG=False
 
 class PySlides(object):
+    level = -1
+
     def __init__(self, document):
         self.slide_dict = yaml.load(document)
 
@@ -36,29 +39,44 @@ class PySlides(object):
         self.shapes = slide.shapes
 
         for k, v in slide_data.iteritems():
+            if DEBUG:
+                print k, v
             if hasattr(self, k):
                 method = getattr(self, k)
                 self.process_cmd(method, v)
 
     def process_cmd(self, method, args):
+        if DEBUG:
+            print "process_cmd", method, args, self.level
         if isinstance(args, list):
+            self.level+=1
             for arg in args:
+                if DEBUG:
+                    print "Process list item:", arg
                 self.process_cmd(method, arg)
+            self.level-=1
         elif isinstance(args, dict):
+            if DEBUG: 
+                print "Process dict item", args
             method(**args)
         else:
+            if DEBUG: 
+                print "Process other:", args
             method(args)
 
     def title(self, titlestr):
         title = self.shapes.title
         title.text = titlestr
 
-    def text(self, text, level=0):
+    def text(self, text):
         self.body = self.shapes.placeholders[1]
         tf = self.body.text_frame
         p = tf.add_paragraph()
         p.text = text
-        p.level = level
+        if self.level >= 0: 
+            p.level = self.level
+        else:
+            p.level = 0
 
     def img(self, path, top, left, width=None, height=None):
         if width and height:
