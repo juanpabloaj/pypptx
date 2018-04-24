@@ -1,0 +1,80 @@
+units: Inches
+slides:
+    - title: Foo
+
+    - title: Bar
+      text: 
+        - This is some more text about stuff
+        - More stuff
+
+    - title: Baz
+      text: Just some text
+
+    - title: Nested
+      text:
+        - A bullet
+        - 
+          - A sub bullet
+
+    - title: Line Chart
+      layout: 5
+      chart:
+        style: LINE
+        categories:
+          - East
+          - West
+          - Midwest
+        series:
+          - title: Data 1
+            data: 
+              - 19.2
+              - 21.4
+              - 16.7
+          - title: Data 2
+            data:
+              - 4.5
+              - 12.2
+              - 1.1
+          - title: Data 3
+            data:
+              - 23.5
+              - 55.5
+              - 89
+
+    - title: Bar Chart
+      layout: 5
+      chart:
+        style: COLUMN_CLUSTERED
+        categories:
+          - East
+          - West
+          - Midwest
+        series:
+          - title: Data 1
+            data: 
+              - 19.2
+              - 21.4
+              - 16.7
+    
+    - title: Pie Chart
+      layout: 5
+      chart:
+        style: PIE
+        categories:
+          - East
+          - West
+          - Midwest
+        series:
+          - title: Data 1
+            data: 
+              - 19.2
+              - 21.4
+              - 16.7
+
+    - title: An Image
+      layout: 5
+      img:
+        - path: images/blue.jpg
+          top: 2
+          left: 1
+          height: 5      
